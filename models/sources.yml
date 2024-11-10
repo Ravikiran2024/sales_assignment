@@ -5,5 +5,47 @@ sources:
     schema: PUBLIC
     tables:
       - name: customers
+        description: "Customer data model"
+        columns:
+          - name: id
+            description: "Unique identifier for each customer"
+            tests:
+              - not_null
+              - unique
+
       - name: orders
+        description: "Orders data model"
+        columns:
+          - name: id
+            description: "Unique identifier for each order"
+            tests:
+              - not_null
+              - unique
+          - name: user_id
+            description: "Customer ID associated with each order"
+            tests:
+              - not_null
+          - name: order_date
+            description: "Date the order was placed"
+            tests:
+              - not_null
+
       - name: payments
+        description: "Payments data model"
+        columns:
+          - name: id
+            description: "Unique identifier for each payment"
+            tests:
+              - not_null
+              - unique
+          - name: amount
+            description: "Payment amount, expected to be positive"
+            tests:
+              - not_null
+              - accepted_range:
+                  min: 0.01
+          - name: payment_method
+            description: "Expected values are 'credit_card', 'coupon', 'bank_transfer', 'gift_card'"
+            tests:
+              - accepted_values:
+                  values: ['credit_card', 'coupon', 'bank_transfer', 'gift_card']

@@ -1,53 +1,11 @@
 version: 2
 
-sources:
-  - name: PC_HEVODATA_DB
-    schema: PUBLIC
-    
-tables:
-  - name: customers
-    alias: customers_model
-    description: "Customer data model"
+models:
+  - name: customers_model
+    description: "Transformed customers model"
     columns:
       - name: customer_id
-        description: "Unique identifier for each customer"
+        description: "Unique identifier generated for the model"
         tests:
           - not_null
           - unique
-
-  - name: orders
-    description: "Orders data model"
-    columns:
-      - name: order_id
-        description: "Unique identifier for each order"
-        tests:
-          - not_null
-          - unique
-      - name: customer_id
-        description: "Customer ID associated with each order"
-        tests:
-          - not_null
-      - name: order_date
-        description: "Date the order was placed"
-        tests:
-          - not_null
-
-  - name: payments
-    description: "Payments data model"
-    columns:
-      - name: payment_id
-        description: "Unique identifier for each payment"
-        tests:
-          - not_null
-          - unique
-      - name: amount
-        description: "Payment amount, expected to be positive"
-        tests:
-          - not_null
-          - accepted_range:
-              min: 0.01
-      - name: payment_method
-        description: "payment_method expected values are 'credit_card', 'coupon', 'bank_transfer', 'gift_card'"
-        tests:
-          - accepted_values:
-              values: ['credit_card', 'coupon', 'bank_transfer', 'gift_card']
